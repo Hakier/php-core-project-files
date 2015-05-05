@@ -18,9 +18,13 @@ class String extends Object
      */
     public static function camelCaseToDashed($string)
     {
-        return preg_replace(
-            '/([A-Z])/e',
-            'strtolower("_".$1)',
+        return preg_replace_callback(
+            '/([A-Z])/',
+            function (array $matches) {
+                return isset($matches[1])
+                    ? strtolower("_" . $matches[1])
+                    : null;
+            },
             $string
         );
     }
@@ -44,9 +48,13 @@ class String extends Object
      */
     public static function dashedToCamelCase($string)
     {
-        return preg_replace(
-            '/_([a-z]*)/e',
-            'ucfirst($1)',
+        return preg_replace_callback(
+            '/_([a-z]*)/',
+            function (array $matches) {
+                return isset($matches[1])
+                    ? ucfirst($matches[1])
+                    : null;
+            },
             $string
         );
     }
