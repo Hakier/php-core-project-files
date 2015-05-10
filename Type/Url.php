@@ -9,6 +9,13 @@ class Url extends AbstractModel
     const SCHEME_HTTP = 'http';
 
     /**
+     * Contains $urlString from construct
+     *
+     * @var string
+     */
+    protected $_urlString = null;
+
+    /**
      * @var string
      */
     protected $_scheme = null;
@@ -46,7 +53,7 @@ class Url extends AbstractModel
     /**
      * @var string
      */
-    protected $_anchor = null;
+    protected $_fragment = null;
 
     public function __construct($urlString = null)
     {
@@ -55,7 +62,7 @@ class Url extends AbstractModel
         }
 
         parent::__construct(
-            parse_url($urlString)
+            parse_url($this->_urlString = $urlString)
         );
     }
 
@@ -74,7 +81,7 @@ class Url extends AbstractModel
      */
     public function setScheme($scheme)
     {
-        $this->_scheme = $scheme;
+        $this->_scheme = (string) $scheme;
 
         return $this;
     }
@@ -94,7 +101,7 @@ class Url extends AbstractModel
      */
     public function setHost($host)
     {
-        $this->_host = $host;
+        $this->_host = (string) $host;
 
         return $this;
     }
@@ -114,7 +121,7 @@ class Url extends AbstractModel
      */
     public function setPort($port)
     {
-        $this->_port = $port;
+        $this->_port = (int) $port;
 
         return $this;
     }
@@ -134,7 +141,7 @@ class Url extends AbstractModel
      */
     public function setUser($user)
     {
-        $this->_user = $user;
+        $this->_user = (string) $user;
 
         return $this;
     }
@@ -154,7 +161,7 @@ class Url extends AbstractModel
      */
     public function setPass($pass)
     {
-        $this->_pass = $pass;
+        $this->_pass = (string) $pass;
 
         return $this;
     }
@@ -174,7 +181,7 @@ class Url extends AbstractModel
      */
     public function setPath($path)
     {
-        $this->_path = $path;
+        $this->_path = (string) $path;
 
         return $this;
     }
@@ -194,7 +201,7 @@ class Url extends AbstractModel
      */
     public function setQuery($query)
     {
-        $this->_query = $query;
+        $this->_query = (string) $query;
 
         return $this;
     }
@@ -202,19 +209,19 @@ class Url extends AbstractModel
     /**
      * @return string
      */
-    public function getAnchor()
+    public function getFragment()
     {
-        return $this->_anchor;
+        return $this->_fragment;
     }
 
     /**
-     * @param string $anchor
+     * @param string $fragment
      *
      * @return $this
      */
-    public function setAnchor($anchor)
+    public function setFragment($fragment)
     {
-        $this->_anchor = $anchor;
+        $this->_fragment = (string) $fragment;
 
         return $this;
     }
